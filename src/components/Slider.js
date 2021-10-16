@@ -1,11 +1,15 @@
+import { useState } from "react";
+
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import woman from "../assets/woman.jpg";
 import styled from "styled-components";
+import { sliderData } from "../data";
 
 const Section = styled.div`
   height: calc(100vh - 90px);
   width: 100%;
   position: relative;
+  overflow-x: hidden;
 `;
 
 const Arrow = styled.div`
@@ -24,13 +28,19 @@ const Arrow = styled.div`
   opacity: 0.5;
   cursor: pointer;
   margin: auto;
+  z-index: 10;
 `;
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
+  height: 100%;
+  transform: translate(${(props) => props.slideIndex * -100}vw);
+  transition: all 1.5s ease;
 `;
 
 const Slide = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   width: 100vw;
@@ -41,14 +51,15 @@ const ImageContainer = styled.div`
   height: 100%;
 `;
 const Image = styled.img`
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
 `;
 const InfoContainer = styled.div`
   position: absolute;
-  left: 5rem;
   width: 26%;
-  color: white;
+  color: ${(props) => props.textColor};
+  left: 5rem;
 `;
 
 const InfoTitle = styled.h1`
@@ -68,49 +79,48 @@ const InfoButton = styled.button`
   appearance: none;
   outline: none;
   cursor: pointer;
+  color: {$props => props.color};
 `;
 
 const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const handleClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
   return (
     <Section>
-      <Arrow direction="left">
+      <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Container>
-        <Slide>
-          <ImageContainer>
-            <Image src={woman} />
-          </ImageContainer>
-          <InfoContainer>
-            <InfoTitle>Hello World! How are you guys doing?</InfoTitle>
-            <InfoDescription>Lorem ipsum dolor sit amet.</InfoDescription>
-            <InfoButton>Get More</InfoButton>
-          </InfoContainer>
-        </Slide>
-
-        <Slide>
-          <ImageContainer>
-            <Image src={woman} />
-          </ImageContainer>
-          <InfoContainer>
-            <InfoTitle>Hello World! How are you guys doing?</InfoTitle>
-            <InfoDescription>Lorem ipsum dolor sit amet.</InfoDescription>
-            <InfoButton>Get More</InfoButton>
-          </InfoContainer>
-        </Slide>
-
-        <Slide>
-          <ImageContainer>
-            <Image src={woman} />
-          </ImageContainer>
-          <InfoContainer>
-            <InfoTitle>Hello World! How are you guys doing?</InfoTitle>
-            <InfoDescription>Lorem ipsum dolor sit amet.</InfoDescription>
-            <InfoButton>Get More</InfoButton>
-          </InfoContainer>
-        </Slide>
+      <Container slideIndex={slideIndex}>
+        {sliderData.map((slideDataInfo) => (
+          <Slide key={slideDataInfo.id}>
+            <ImageContainer>
+              <Image src={slideDataInfo.image} />
+            </ImageContainer>
+            <InfoContainer
+              textColor={
+                slideIndex === 1 ? "#000" : slideIndex === 2 ? "#000" : "#fff"
+              }
+            >
+              <InfoTitle>{slideDataInfo.title}</InfoTitle>
+              <InfoDescription>{slideDataInfo.description}</InfoDescription>
+              <InfoButton
+                textColor={
+                  slideIndex === 1 ? "#000" : slideIndex === 2 ? "#000" : "#fff"
+                }
+              >
+                Get More
+              </InfoButton>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Container>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Section>
