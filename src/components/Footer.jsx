@@ -1,8 +1,21 @@
 import styled from "styled-components";
-import { Facebook, Instagram, Twitter, Pinterest } from "@material-ui/icons";
+import { mobile, tablet } from "../media";
+
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Pinterest,
+  Room,
+  Phone,
+  MailOutline,
+} from "@material-ui/icons";
 
 const Container = styled.div`
   display: flex;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `;
 const Left = styled.div`
   flex: 1;
@@ -49,9 +62,16 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   cursor: pointer;
+  margin-bottom: 20px;
 `;
 const Right = styled.div`
   flex: 1;
+  padding: 20px;
+`;
+const ContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 const Footer = () => {
@@ -96,7 +116,18 @@ const Footer = () => {
         </List>
       </Center>
 
-      <Right></Right>
+      <Right>
+        <Title>Contact</Title>
+        <ContactItem>
+          <Room style={{ marginRight: ".6rem" }} /> Lagos, Nigeria
+        </ContactItem>
+        <ContactItem>
+          <Phone style={{ marginRight: ".6rem" }} /> 07035023355
+        </ContactItem>
+        <ContactItem>
+          <MailOutline style={{ marginRight: ".6rem" }} /> hairprotege@gmail.com
+        </ContactItem>
+      </Right>
     </Container>
   );
 };

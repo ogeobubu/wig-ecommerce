@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
+import { mobile, tablet } from "../media";
 
 const Section = styled.div`
   height: 60px;
+  ${mobile({
+    height: "50px",
+  })}
 `;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
+  ${mobile({
+    padding: "10px 0px",
+  })};
+  ${tablet({
+    height: "100%",
+  })}
 `;
 
 const Left = styled.div`
@@ -33,26 +43,43 @@ const SearchContainer = styled.div`
 const Input = styled.input`
   border: none;
   outline: none;
+  ${mobile({
+    width: "50px",
+  })}
 `;
 
 const Center = styled.div`
   flex: 1;
+  text-align: center;
 `;
 const Logo = styled.h1`
-  font-size: 14px;
-  text-align: center;
+  font-weight: bold;
+  ${mobile({
+    fontSize: "18px",
+  })}
+  ${tablet({
+    fontSize: "25px",
+  })}
 `;
 const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  ${mobile({
+    flex: "2",
+    justifyContent: "center",
+  })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-right: 20px;
+  ${mobile({
+    fontSize: "12px",
+    marginLeft: "3px",
+  })}
 `;
 
 const Navbar = () => {
@@ -62,7 +89,7 @@ const Navbar = () => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input />
+            <Input placeholder="Search" />
             <Search />
           </SearchContainer>
         </Left>

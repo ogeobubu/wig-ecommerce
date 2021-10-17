@@ -4,12 +4,16 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import woman from "../assets/woman.jpg";
 import styled from "styled-components";
 import { sliderData } from "../data";
+import { mobile, tablet } from "../media";
 
 const Section = styled.div`
   height: calc(100vh - 90px);
   width: 100%;
   position: relative;
   overflow-x: hidden;
+  ${mobile({
+    display: "none",
+  })}
 `;
 
 const Arrow = styled.div`
@@ -60,16 +64,26 @@ const InfoContainer = styled.div`
   width: 26%;
   color: ${(props) => props.textColor};
   left: 5rem;
+
+  ${tablet({
+    width: "60%",
+  })}
 `;
 
 const InfoTitle = styled.h1`
   font-size: 30px;
   margin-bottom: 1rem;
+  ${tablet({
+    fontSize: "40px",
+  })}
 `;
 
 const InfoDescription = styled.p`
   font-size: 18px;
   margin-bottom: 1rem;
+  ${tablet({
+    fontSize: "20px",
+  })}
 `;
 
 const InfoButton = styled.button`
