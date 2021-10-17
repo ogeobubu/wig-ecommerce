@@ -6,6 +6,9 @@ import luxuryBlone from "./assets/luxury-blone.jpeg";
 import weaveWig from "./assets/weave-wig.jpeg";
 import prePluged from "./assets/pre-plucked.png";
 import wigNumber from "./assets/wig-number.jpeg";
+import brown from "./assets/brown.jpeg";
+import curly from "./assets/curly.jpeg";
+import silk from "./assets/silk.jpeg";
 
 export const sliderData = [
   {
@@ -54,9 +57,37 @@ export const categories = [
   },
 ];
 
-// export const popularProduct = [
-//   {
-//     id: 1,
-//     image: "",
-//   },
-// ];
+export const popularProduct = [
+  {
+    id: 1,
+    image: brown,
+  },
+  {
+    id: 2,
+    image: curly,
+  },
+  {
+    id: 3,
+    image: silk,
+  },
+  {
+    id: 4,
+    image: brown,
+  },
+  {
+    id: 5,
+    image: brown,
+  },
+  {
+    id: 6,
+    image: curly,
+  },
+  {
+    id: 7,
+    image: silk,
+  },
+  {
+    id: 8,
+    image: brown,
+  },
+];
