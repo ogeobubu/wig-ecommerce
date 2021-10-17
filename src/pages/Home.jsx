@@ -1,5 +1,5 @@
 import React from "react";
-import Announcement from "../components/Announcement";
+import Announcement from "../components/Announcement.jsx";
 import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import Categories from "../components/Categories";

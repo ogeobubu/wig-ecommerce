@@ -55,10 +55,7 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   ${mobile({
-    fontSize: "18px",
-  })}
-  ${tablet({
-    fontSize: "25px",
+    fontSize: "12px",
   })}
 `;
 const Right = styled.div`

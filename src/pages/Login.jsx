@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile, tablet } from "../media";
 
 const Section = styled.section`
   width: 100vw;
@@ -12,6 +13,12 @@ const Container = styled.div`
   width: 25%;
   padding: 20px;
   background-color: white;
+  ${mobile({
+    width: "100%",
+  })}
+  ${tablet({
+    width: "85%",
+  })}
 `;
 const Title = styled.h1`
   font-size: 24px;
