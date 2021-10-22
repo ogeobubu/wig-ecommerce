@@ -47,6 +47,35 @@ exports.register = async (req, res) => {
   }
 };
 
-// exports.login = async (req, res) => {
-//     const user = require("")
-// }
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(400).json({
+      message: "This user does not exist.",
+    });
+  } else {
+    const comparePassword = await bcrypt.compare(password, user.password);
+
+    if (!comparePassword) {
+      return res.status(400).json({
+        message: "Incorrect password.",
+      });
+    }
+
+    const loginUser = {
+      email,
+      password,
+    };
+
+    const token = jwt.sign({ id: user._id }, "secretkey", {
+      expiresIn: "1d",
+    });
+
+    res.status(200).json({
+      message: "User has successfully logged in.",
+      token,
+    });
+  }
+};
