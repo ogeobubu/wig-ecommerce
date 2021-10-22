@@ -23,7 +23,10 @@ exports.getUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const query = req.query.latest;
+    const users = query
+      ? await User.find({ _id: -1 }).limit(5)
+      : await User.find();
     res.status(200).json({
       message: users,
     });
@@ -52,7 +55,27 @@ exports.editUser = async (req, res) => {
       message: "User has been updated",
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+
+    if (!user) {
+      return res.status(400).json({
+        message: "This user does not exist",
+      });
+    } else {
+      return res.status(200).json({
+        message: "User has been deleted",
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
       message: error.message,
     });
   }

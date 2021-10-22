@@ -3,17 +3,13 @@ const User = require("../models/User");
 
 const admin = async (req, res, next) => {
   try {
-    const token = req.header("Authorization");
-
-    jwt.verify(token, process.env.JWT_SECRET, (error, user) => {
-      if (user.isAdmin === false) {
-        return res.status(401).json({
-          message: "Admin resource only.",
-        });
-      } else {
-        next();
-      }
-    });
+    if (req.user.isAdmin === true) {
+      next();
+    } else {
+      return res.status(401).json({
+        message: "Admin resource only.",
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Admin resource only.",
