@@ -5,10 +5,12 @@ const app = express();
 require("dotenv/config");
 
 const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 app.use(morgan("dev"));
 app.use(express.json());
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
 const connection_uri = process.env.DATABASE;
 
@@ -19,7 +21,7 @@ mongoose
   })
   .then(() => console.log("MongoDB has successfully connected!"))
   .catch((error) =>
-    console.log("MongoDB has failed to successfully connected.", error)
+    console.log("MongoDB has failed to successfully connected.")
   );
 
 const PORT = process.env.PORT_PATH || process.env.PORT;

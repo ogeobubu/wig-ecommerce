@@ -18,19 +18,15 @@ const userProduct = new mongoose.Schema(
     },
     categories: {
       type: Array,
-     
     },
     hairLength: {
       type: String,
-     
     },
     color: {
       type: String,
-     
     },
     price: {
       type: String,
-     
     },
   },
   {
@@ -38,6 +34,6 @@ const userProduct = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("EcommerceProduct", userProduct);
+const Product = mongoose.model("EcommerceProduct", userProduct);
 
 module.exports = Product;
