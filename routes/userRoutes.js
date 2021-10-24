@@ -6,6 +6,7 @@ const {
   getAllUsers,
   editUser,
   deleteUser,
+  getStatistics,
 } = require("../controllers/user");
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");
@@ -16,5 +17,6 @@ router.get("/", auth, getUser);
 router.get("/all", auth, admin, getAllUsers);
 router.patch("/:id", auth, editUser);
 router.delete("/:id", auth, admin, deleteUser);
+router.get("/stats", auth, admin, getStatistics);
 
 module.exports = router;
