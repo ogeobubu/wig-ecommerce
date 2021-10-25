@@ -16,7 +16,7 @@ exports.createCart = async (req, res) => {
 
 exports.getCart = async (req, res) => {
   try {
-    const cart = await Cart.findById(req.params.id);
+    const cart = await Cart.findOne({ userId: req.params.userId });
     if (!cart) {
       return res.status(400).json({
         message: "This cart does not exist!",
