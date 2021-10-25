@@ -14,6 +14,19 @@ exports.createCart = async (req, res) => {
   }
 };
 
+exports.getCarts = async (req, res) => {
+  try {
+    const carts = await Cart.find();
+    return res.status(200).json({
+      message: carts,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 exports.getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId });
