@@ -5,6 +5,7 @@ const {
   getProducts,
   getProduct,
   editProduct,
+  deleteProduct,
 } = require("../controllers/product");
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");
@@ -14,5 +15,6 @@ router.get("/all", auth, getProducts);
 router.get("/all", auth, getProducts);
 router.get("/:id", auth, getProduct);
 router.post("/:id", auth, admin, editProduct);
+router.delete("/:id", auth, admin, deleteProduct);
 
 module.exports = router;
