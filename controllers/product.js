@@ -59,3 +59,25 @@ exports.getProduct = async (req, res) => {
     });
   }
 };
+
+exports.editProduct = async (req, res) => {
+  try {
+    const editProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({
+      message: editProduct,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
