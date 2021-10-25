@@ -29,7 +29,7 @@ exports.getOrders = async (req, res) => {
 
 exports.getOrder = async (req, res) => {
   try {
-    const order = await Order.findOne({ userId: req.params.userId });
+    const order = await Order.find({ userId: req.params.userId });
     if (!order) {
       return res.status(400).json({
         message: "This order does not exist!",
@@ -87,27 +87,17 @@ exports.incomeOrder = async (req, res) => {
   const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
   try {
     const income = await Order.aggregate([
-      {
-        $match: {
-          createdAt: {
-            $gte: previousMonth,
-          },
-        },
-      },
+      { $match: { createdAt: { $gte: previousMonth } } },
       {
         $project: {
-          month: {
-            $month: "$createdAt",
-          },
+          month: { $month: "$createdAt" },
+          sales: "$amount",
         },
-        sales: "$amount",
       },
       {
         $group: {
           _id: "$month",
-          total: {
-            $sum: "$sales",
-          },
+          total: { $sum: "$sales" },
         },
       },
     ]);
