@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
-app.use("/api/order", orderRoutes);
+app.use("/api/orders", orderRoutes);
 
 const connection_uri = process.env.DATABASE;
 
