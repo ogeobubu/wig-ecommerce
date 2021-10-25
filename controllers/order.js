@@ -80,3 +80,43 @@ exports.deleteOrder = async (req, res) => {
     });
   }
 };
+
+exports.income = async (req, res) => {
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  try {
+    const income = await Order.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: previousMonth,
+          },
+        },
+      },
+      {
+        $project: {
+          month: {
+            $month: "$createdAt",
+          },
+        },
+        sales: "$amount",
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: {
+            $sum: "$sales",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      message: income,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
