@@ -8,7 +8,7 @@ exports.payment = async (req, res) => {
       req.body,
       {
         headers: {
-          Authorization: `Bearer FLWSECK_TEST-34522690dd6d99eddd0c6d0a6fe1da2d-X`,
+          Authorization: `Bearer ${process.env.FLUTTERWAVE_KEY}`,
         },
       }
     );
