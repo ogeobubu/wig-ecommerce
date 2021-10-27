@@ -93,7 +93,7 @@ const InfoButton = styled.button`
   appearance: none;
   outline: none;
   cursor: pointer;
-  color: {$props => props.color};
+  color: ${(props) => props.color};
 `;
 
 const Slider = () => {
@@ -126,6 +126,9 @@ const Slider = () => {
               <InfoButton
                 textColor={
                   slideIndex === 1 ? "#000" : slideIndex === 2 ? "#000" : "#fff"
+                }
+                color={
+                  slideIndex === 1 ? "#000" : slideIndex === 2 ? "#fff" : "#fff"
                 }
               >
                 Get More

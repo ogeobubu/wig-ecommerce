@@ -3,7 +3,7 @@ const axios = require("axios");
 
 exports.payment = async (req, res) => {
   try {
-    const sentData = await axios.post(
+    const payload = await axios.post(
       "https://api.flutterwave.com/v3/payments",
       req.body,
       {
@@ -13,7 +13,7 @@ exports.payment = async (req, res) => {
       }
     );
     res.status(200).json({
-      message: sentData.data,
+      message: payload.data,
     });
   } catch (error) {
     return res.status(500).json({
