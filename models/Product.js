@@ -28,6 +28,10 @@ const userProduct = new mongoose.Schema(
     price: {
       type: String,
     },
+    inStock: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
