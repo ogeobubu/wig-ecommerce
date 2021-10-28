@@ -14,14 +14,22 @@ const Container = styled.div`
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
+  console.log(filterProducts);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const productsList = await axios.get(
-          "http://localhost:5000/api/products/all"
-        );
-        console.log(productsList.data);
+        if (category) {
+          const productsList = await axios.get(
+            `http://localhost:5000/api/products/all?category=${category}`
+          );
+          setProducts(productsList.data);
+        } else {
+          const productsList = await axios.get(
+            "http://localhost:5000/api/products/all"
+          );
+          setProducts(productsList.data);
+        }
       } catch (error) {
         return console.log(error);
       }
@@ -29,9 +37,20 @@ const Products = ({ category, filters, sort }) => {
     getProducts();
   }, [category]);
 
+  useEffect(() => {
+    category &&
+      setFilterProducts(
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )
+        )
+      );
+  }, [products, category, filters]);
+
   return (
     <Container>
-      {popularProduct.map((product) => (
+      {filterProducts.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </Container>

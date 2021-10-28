@@ -34,17 +34,17 @@ exports.getProducts = async (req, res) => {
 
     if (latestQuery) {
       products = await Product.find().sort({ createdAt: -1 }).limit(5);
-    } else if (categoryQuery) {
-      products = await Product.find()
-        .sort({
-          categories: {
-            $in: [categoryQuery],
-          },
-        })
-        .limit(5);
-    } else {
-      products = await Product.find();
     }
+
+    if (categoryQuery) {
+      products = await Product.find({
+        categories: {
+          $in: [categoryQuery],
+        },
+      }).limit(5);
+    }
+
+    products = await Product.find();
 
     res.status(200).json({
       message: products,
