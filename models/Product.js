@@ -23,7 +23,7 @@ const userProduct = new mongoose.Schema(
       type: String,
     },
     color: {
-      type: String,
+      type: Array,
     },
     price: {
       type: String,

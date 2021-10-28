@@ -54,8 +54,6 @@ const ProductList = () => {
     setSort(e.target.value);
   };
 
-  console.log(sort);
-
   return (
     <Container>
       <Announcement />
@@ -66,19 +64,19 @@ const ProductList = () => {
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Colour</Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
+            <Option value="white">White</Option>
+            <Option value="black">Black</Option>
+            <Option value="red">Red</Option>
+            <Option value="blue">Blue</Option>
+            <Option value="yellow">Yellow</Option>
+            <Option value="green">Green</Option>
           </Select>
           <Select name="length" onChange={handleFilters}>
             <Option disabled>Length</Option>
-            <Option>5 inches</Option>
-            <Option>7 inches</Option>
-            <Option>10 inches</Option>
-            <Option>15 inches</Option>
+            <Option value="5">5 inches</Option>
+            <Option value="7">7 inches</Option>
+            <Option value="10">10 inches</Option>
+            <Option value="15">15 inches</Option>
           </Select>
         </Filter>
         <Filter>
