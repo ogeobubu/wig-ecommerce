@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const app = express();
@@ -12,6 +13,7 @@ const flutterRoutes = require("./routes/flutterRoutes");
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);

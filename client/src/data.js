@@ -39,21 +39,24 @@ export const categories = [
     id: 1,
     image: luxuryBlone,
     title: "Luxury Blone Wig Hair",
+    category: "blone",
   },
   {
     id: 2,
     image: weaveWig,
     title: "Loose Wave Wigs",
+    category: "weave",
   },
   {
     id: 3,
     image: prePluged,
     title: "Short Wavy Wigs",
+    category: "short",
   },
   {
     id: 4,
     image: wigNumber,
-    title: "Full Lace Wigs",
+    title: "yellow",
   },
 ];
 

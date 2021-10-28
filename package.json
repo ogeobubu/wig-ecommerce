@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ogeobubu/wig-ecommerce#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "flutterwave-node-v3": "^1.0.9",
