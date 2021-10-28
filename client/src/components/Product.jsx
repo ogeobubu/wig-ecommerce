@@ -4,6 +4,7 @@ import {
   SearchOutlined,
   FavoriteBorderOutlined,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
 opacity: 0;
@@ -73,7 +74,9 @@ const Product = ({ product }) => {
           <ShoppingCartOutlined style={{ fontSize: "30px", color: "white" }} />
         </Icon>
         <Icon>
-          <SearchOutlined style={{ fontSize: "30px", color: "white" }} />
+          <Link to={`/product/${product._id}`}>
+            <SearchOutlined style={{ fontSize: "30px", color: "white" }} />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined

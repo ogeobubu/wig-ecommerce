@@ -58,7 +58,7 @@ const ProductList = () => {
     <Container>
       <Announcement />
       <NavBar />
-      <Title>Wigs</Title>
+      <Title>{categoryName}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -71,7 +71,7 @@ const ProductList = () => {
             <Option value="yellow">Yellow</Option>
             <Option value="green">Green</Option>
           </Select>
-          <Select name="length" onChange={handleFilters}>
+          <Select name="hairLength" onChange={handleFilters}>
             <Option disabled>Length</Option>
             <Option value="5">5 inches</Option>
             <Option value="7">7 inches</Option>

@@ -47,11 +47,31 @@ const Products = ({ category, filters, sort }) => {
       );
   }, [products, category, filters]);
 
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilterProducts((previous) =>
+        [...previous].sort((a, b) => a.createdAt - b.createdAt)
+      );
+    } else if (sort === "ascending") {
+      setFilterProducts((previous) =>
+        [...previous].sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setFilterProducts((previous) =>
+        [...previous].sort((a, b) => b.price - a.price)
+      );
+    }
+  }, [sort]);
+
   return (
     <Container>
-      {filterProducts.map((product) => (
-        <Product key={product._id} product={product} />
-      ))}
+      {category
+        ? filterProducts.map((product) => (
+            <Product key={product._id} product={product} />
+          ))
+        : products
+            .slice(0, 8)
+            .map((product) => <Product key={product._id} product={product} />)}
     </Container>
   );
 };
