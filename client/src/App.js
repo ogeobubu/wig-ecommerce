@@ -13,10 +13,18 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/products/:category" component={ProductList} />
-        <Route exact path="/products/:category" component={ProductList} />
-        <Route exact path="/product/:id" component={Product} />
-        <Route exact path="/cart" component={Cart} />
+        <Route
+          exact
+          path="/products/:category"
+          component={user ? ProductList : Login}
+        />
+        <Route
+          exact
+          path="/products/:category"
+          component={user ? ProductList : Login}
+        />
+        <Route exact path="/product/:id" component={user ? Product : Login} />
+        <Route exact path="/cart" component={user ? Cart : Login} />
         <Route exact path="/login" component={user ? Home : Login} />
         <Route exact path="/create" component={user ? Home : Register} />
       </Switch>
