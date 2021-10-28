@@ -20,7 +20,7 @@ const userProduct = new mongoose.Schema(
       type: Array,
     },
     hairLength: {
-      type: String,
+      type: Array,
     },
     color: {
       type: Array,

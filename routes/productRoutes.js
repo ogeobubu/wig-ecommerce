@@ -12,7 +12,7 @@ const auth = require("../middlewares/auth");
 
 router.post("/", auth, admin, createProducts);
 router.get("/all", getProducts);
-router.get("/:id", auth, getProduct);
+router.get("/:id", getProduct);
 router.patch("/:id", auth, admin, editProduct);
 router.delete("/:id", auth, admin, deleteProduct);
 

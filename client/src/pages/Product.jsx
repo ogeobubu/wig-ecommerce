@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import luxuryBlone from "../assets/luxury-blone.jpeg";
 import NavBar from "../components/Navbar";
@@ -7,6 +10,8 @@ import Footer from "../components/Footer";
 
 import { Remove, Add } from "@material-ui/icons";
 import { mobile } from "../media";
+
+import { publicUse, privateUse } from "../api";
 
 const Container = styled.div``;
 const Section = styled.div`
@@ -112,36 +117,49 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+
+  console.log(product);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const productData = await publicUse.get(`/products/${id}`);
+        setProduct(productData.data.message);
+      } catch (error) {
+        return console.log(error.message);
+      }
+    };
+    getProduct();
+  }, [id]);
   return (
     <Container>
       <Announcement />
       <NavBar />
       <Section>
         <ImageContainer>
-          <Image src={luxuryBlone} />
+          <Image src={product.image} />
         </ImageContainer>
         <InfoContainer>
-          <Title>Blonde Yellow Wig: Human Hair For Women</Title>
-          <Description>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            deserunt voluptatem, deleniti et, perferendis sed architecto. Qui
-            aspernatur itaque quos tempore, porro inventore nulla non maxime,
-            nam in est architecto.
-          </Description>
-          <Price>#1000</Price>
+          <Title>{product.title}</Title>
+          <Description>{product.description}</Description>
+          <Price>#{product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black"></FilterColor>
-              <FilterColor color="darkblue"></FilterColor>
-              <FilterColor color="grey"></FilterColor>
+              {product.color.map((colorItem, index) => (
+                <FilterColor color={colorItem} key={index} />
+              ))}
             </Filter>
             <FilterTitle>Length</FilterTitle>
             <FilterLength>
-              <FilterLengthOption>5 inches</FilterLengthOption>
-              <FilterLengthOption>7 inches</FilterLengthOption>
-              <FilterLengthOption>10 inches</FilterLengthOption>
-              <FilterLengthOption>15 inches</FilterLengthOption>
+              {product.hairLength.map((lengthItem, index) => (
+                <FilterLengthOption key={index}>
+                  {lengthItem} inches
+                </FilterLengthOption>
+              ))}
             </FilterLength>
           </FilterContainer>
 
