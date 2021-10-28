@@ -24,12 +24,12 @@ const Products = ({ category, filters, sort }) => {
           const productsList = await axios.get(
             `http://localhost:5000/api/products/all?category=${category}`
           );
-          setProducts(productsList.data);
+          setProducts(productsList.data.message);
         } else {
           const prodList = await axios.get(
             "http://localhost:5000/api/products/all"
           );
-          setProducts(prodList.data);
+          setProducts(prodList.data.message);
         }
       } catch (error) {
         return console.log(error);
