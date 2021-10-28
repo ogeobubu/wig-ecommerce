@@ -120,8 +120,17 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [length, setLength] = useState("");
 
-  console.log(product);
+  const handleClick = (action) => {
+    if (action === "minus") {
+      setQuantity(quantity <= 1 ? 1 : quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -149,13 +158,17 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.color.map((colorItem, index) => (
-                <FilterColor color={colorItem} key={index} />
+              {product.color?.map((colorItem, index) => (
+                <FilterColor
+                  color={colorItem}
+                  key={index}
+                  onClick={() => setColor(colorItem)}
+                />
               ))}
             </Filter>
             <FilterTitle>Length</FilterTitle>
-            <FilterLength>
-              {product.hairLength.map((lengthItem, index) => (
+            <FilterLength onChange={(e) => setLength(e.target.value)}>
+              {product.hairLength?.map((lengthItem, index) => (
                 <FilterLengthOption key={index}>
                   {lengthItem} inches
                 </FilterLengthOption>
@@ -165,9 +178,15 @@ const Product = () => {
 
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove
+                style={{ cursor: "pointer" }}
+                onClick={() => handleClick("minus")}
+              />
+              <Amount>{quantity}</Amount>
+              <Add
+                style={{ cursor: "pointer" }}
+                onClick={() => handleClick("add")}
+              />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>
