@@ -14,6 +14,7 @@ const Container = styled.div`
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
+  console.log(products);
   console.log(filterProducts);
 
   useEffect(() => {
@@ -25,10 +26,10 @@ const Products = ({ category, filters, sort }) => {
           );
           setProducts(productsList.data);
         } else {
-          const productsList = await axios.get(
+          const prodList = await axios.get(
             "http://localhost:5000/api/products/all"
           );
-          setProducts(productsList.data);
+          setProducts(prodList.data);
         }
       } catch (error) {
         return console.log(error);
