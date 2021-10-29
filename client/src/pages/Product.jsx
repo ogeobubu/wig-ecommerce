@@ -13,6 +13,9 @@ import { mobile } from "../media";
 
 import { publicUse, privateUse } from "../api";
 
+import { addProduct } from "../redux/cart";
+import { useDispatch } from "react-redux";
+
 const Container = styled.div``;
 const Section = styled.div`
   padding: 50px;
@@ -124,12 +127,18 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [length, setLength] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleClick = (action) => {
     if (action === "minus") {
       setQuantity(quantity <= 1 ? 1 : quantity - 1);
     } else {
       setQuantity(quantity + 1);
     }
+  };
+
+  const handleCart = () => {
+    dispatch(addProduct({ ...product, quantity, color, length }));
   };
 
   useEffect(() => {
@@ -188,7 +197,7 @@ const Product = () => {
                 onClick={() => handleClick("add")}
               />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleCart}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Section>

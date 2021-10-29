@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import luxuryBlone from "../assets/luxury-blone.jpeg";
 import { Remove, Add } from "@material-ui/icons";
 import { mobile } from "../media";
+import { useSelector } from "react-redux";
+import FlutterWave from "../components/FlutterWave";
 
 const Container = styled.div``;
 const Section = styled.section`
@@ -137,17 +139,10 @@ const SummaryItem = styled.div`
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
-const SummaryButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-`;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <Container>
       <Announcement />
@@ -164,99 +159,51 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src={luxuryBlone} />
-                <Details>
-                  <ProductName>
-                    <b>Product: </b>
-                    Blonde Yellow Wig: Human Hair For Women
-                  </ProductName>
-                  <ProductId>
-                    <b>ID: </b>
-                    123456789
-                  </ProductId>
-                  <ProductColor color="brown" />
-                  <ProductLength>
-                    <b>Length:</b> 10 inches
-                  </ProductLength>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>#1000</ProductPrice>
-              </PriceDetail>
-            </Product>
-
-            <Hr />
-
-            <Product>
-              <ProductDetail>
-                <Image src={luxuryBlone} />
-                <Details>
-                  <ProductName>
-                    <b>Product: </b>
-                    Blonde Yellow Wig: Human Hair For Women
-                  </ProductName>
-                  <ProductId>
-                    <b>ID: </b>
-                    123456789
-                  </ProductId>
-                  <ProductColor color="brown" />
-                  <ProductLength>
-                    <b>Length:</b> 10 inches
-                  </ProductLength>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add style={{ cursor: "pointer" }} />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove style={{ cursor: "pointer" }} />
-                </ProductAmountContainer>
-                <ProductPrice>#1000</ProductPrice>
-              </PriceDetail>
-            </Product>
-
-            <Hr />
-
-            <Product>
-              <ProductDetail>
-                <Image src={luxuryBlone} />
-                <Details>
-                  <ProductName>
-                    <b>Product: </b>
-                    Blonde Yellow Wig: Human Hair For Women
-                  </ProductName>
-                  <ProductId>
-                    <b>ID: </b>
-                    123456789
-                  </ProductId>
-                  <ProductColor color="brown" />
-                  <ProductLength>
-                    <b>Length:</b> 10 inches
-                  </ProductLength>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add style={{ cursor: "pointer" }} />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove style={{ cursor: "pointer" }} />
-                </ProductAmountContainer>
-                <ProductPrice>#1000</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((product, index) => (
+              <>
+                <Product key={index}>
+                  <ProductDetail>
+                    <Image src={product.image} />
+                    <Details>
+                      <ProductName>
+                        <b>Product: </b>
+                        {product.title}
+                      </ProductName>
+                      <ProductId>
+                        <b>ID: </b>
+                        {product._id}
+                      </ProductId>
+                      <ProductColor color={product.color} />
+                      <ProductLength>
+                        <b>Length:</b>
+                        {product.length === ""
+                          ? `0 inch`
+                          : product.length <= "1"
+                          ? product.length`inch`
+                          : product.length`inches`}
+                      </ProductLength>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Add />
+                      <ProductAmount>{product.quantity}</ProductAmount>
+                      <Remove />
+                    </ProductAmountContainer>
+                    <ProductPrice>
+                      #{product.price * product.quantity}
+                    </ProductPrice>
+                  </PriceDetail>
+                </Product>
+                <Hr />
+              </>
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>#100</SummaryItemPrice>
+              <SummaryItemPrice>#{cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -268,9 +215,9 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>#150</SummaryItemPrice>
+              <SummaryItemPrice>#{cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryButton>CHECKOUT</SummaryButton>
+            <FlutterWave cart={cart} />
           </Summary>
         </Bottom>
       </Section>
